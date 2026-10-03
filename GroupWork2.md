@@ -39,69 +39,112 @@
 ## PERT / CPM圖
 
 ```mermaid
-flowchart LR
-    S((Start))
+flowchart TB
 
-    T1["T1 MVP規格確認<br/>4天"]
-    T2["T2 文獻與分析指標<br/>8天"]
-    T3["T3 開發環境與架構<br/>5天"]
-    T4["T4 資料來源與資料集<br/>8天"]
-    T5["T5 標準動作與標註規格<br/>8天"]
+    %% =========================
+    %% Start
+    %% =========================
+    START((Start))
 
-    T6["T6 影片前處理<br/>6天"]
-    T7["T7 人體姿態擷取<br/>10天"]
-    T8["T8 Skeleton正規化<br/>7天"]
+    %% =========================
+    %% Phase 1
+    %% =========================
+    subgraph P1["階段一：專案規劃與研究"]
+        direction LR
 
-    T9["T9 動作特徵計算<br/>7天"]
-    T10["T10 DTW時序對齊<br/>8天"]
-    T11["T11 動作分段與標準模板<br/>8天"]
-    T12["T12 偏差分析引擎<br/>6天"]
+        T1["T1 MVP範圍與規格確認<br/>4天"]
+        T2["T2 文獻與分析指標整理<br/>8天"]
+        T4["T4 資料來源與資料集建立<br/>8天"]
+        T5["T5 標準動作與標註規格<br/>8天"]
 
-    T13["T13 Backend API<br/>10天"]
-    T14["T14 Frontend MVP<br/>10天"]
-    T15["T15 分析結果視覺化<br/>8天"]
+        T2 --> T4
+        T4 --> T5
+        T2 --> T5
+    end
 
+    %% =========================
+    %% Phase 2
+    %% =========================
+    subgraph P2["階段二：系統基礎與資料處理"]
+        direction LR
+
+        T3["T3 開發環境與專案架構<br/>5天"]
+        T6["T6 影片前處理<br/>6天"]
+        T7["T7 人體姿態擷取<br/>10天"]
+        T8["T8 Skeleton清理與正規化<br/>7天"]
+
+        T3 --> T6
+        T6 --> T7
+        T7 --> T8
+    end
+
+    %% =========================
+    %% Phase 3
+    %% =========================
+    subgraph P3["階段三：動作分析核心"]
+        direction LR
+
+        T9["T9 動作特徵計算<br/>7天"]
+        T10["T10 DTW時序對齊<br/>8天"]
+        T11["T11 動作分段與標準模板<br/>8天"]
+        T12["T12 偏差與規則分析引擎<br/>6天"]
+
+        T9 --> T11
+        T10 --> T11
+        T11 --> T12
+    end
+
+    %% =========================
+    %% Phase 4
+    %% =========================
+    subgraph P4["階段四：Web系統與視覺化"]
+        direction LR
+
+        T13["T13 Backend API<br/>10天"]
+        T14["T14 Frontend MVP<br/>10天"]
+        T15["T15 分析結果視覺化<br/>8天"]
+    end
+
+    %% =========================
+    %% Integration
+    %% =========================
     T16["T16 系統整合<br/>6天"]
 
-    T17["T17 實驗與量化評估<br/>5天"]
-    T18["T18 系統測試與修正<br/>5天"]
-    T19["T19 文件與展示成果<br/>6天"]
+    %% =========================
+    %% Phase 5
+    %% =========================
+    subgraph P5["階段五：測試、實驗與成果"]
+        direction LR
+
+        T17["T17 實驗與量化評估<br/>5天"]
+        T18["T18 系統測試與修正<br/>5天"]
+        T19["T19 文件與展示成果<br/>6天"]
+    end
 
     T20["T20 第一階段驗收<br/>3天"]
-    F((Finish))
+    FINISH((Finish))
 
-    S --> T1
-    S --> T2
+    %% =========================
+    %% Cross-phase dependencies
+    %% =========================
+
+    START --> T1
+    START --> T2
 
     T1 --> T3
     T1 --> T4
-    T2 --> T4
-
-    T2 --> T5
-    T4 --> T5
-
-    T3 --> T6
+    T1 --> T14
 
     T4 --> T7
-    T6 --> T7
-
-    T7 --> T8
 
     T2 --> T9
-    T8 --> T9
 
+    T8 --> T9
     T8 --> T10
 
     T5 --> T11
-    T9 --> T11
-    T10 --> T11
-
-    T11 --> T12
 
     T6 --> T13
-
-    T1 --> T14
-    T3 --> T14
 
     T9 --> T15
     T10 --> T15
@@ -119,8 +162,17 @@ flowchart LR
     T18 --> T20
     T19 --> T20
 
-    T20 --> F
+    T20 --> FINISH
 
-    classDef critical fill:#ffe5e5,stroke:#cc0000,stroke-width:3px,color:#000000;
+    %% =========================
+    %% Critical Path Style
+    %% =========================
+
+    classDef critical fill:#ffe5e5,stroke:#d60000,stroke-width:3px,color:#000;
+    classDef normal fill:#ffffff,stroke:#666,stroke-width:1.5px,color:#000;
+    classDef terminal fill:#eeeeee,stroke:#333,stroke-width:2px,color:#000;
+
     class T2,T4,T7,T8,T10,T11,T12,T16,T19,T20 critical;
+    class T1,T3,T5,T6,T9,T13,T14,T15,T17,T18 normal;
+    class START,FINISH terminal;
 ```
