@@ -171,8 +171,51 @@ flowchart TB
     classDef critical fill:#ffe5e5,stroke:#d60000,stroke-width:3px,color:#000;
     classDef normal fill:#ffffff,stroke:#666,stroke-width:1.5px,color:#000;
     classDef terminal fill:#eeeeee,stroke:#333,stroke-width:2px,color:#000;
-
+ 
     class T2,T4,T7,T8,T10,T11,T12,T16,T19,T20 critical;
     class T1,T3,T5,T6,T9,T13,T14,T15,T17,T18 normal;
     class START,FINISH terminal;
+```
+
+## 甘特圖
+
+```mermaid
+gantt
+    title 空手道／跆拳道影像輔助評判系統－第一階段專案甘特圖
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%d
+
+    section 專案規劃與研究
+    MVP範圍與規格確認 T1              :t1, 2026-10-01, 4d
+    文獻與分析指標整理 T2              :crit, t2, 2026-10-01, 8d
+    資料來源與資料集建立 T4            :crit, t4, 2026-10-09, 8d
+    標準動作與標註規格 T5              :t5, 2026-10-17, 8d
+
+    section 開發環境與影像處理
+    開發環境與專案架構 T3              :t3, 2026-10-05, 5d
+    影片前處理模組 T6                  :t6, 2026-10-10, 6d
+    人體姿態擷取模組 T7                :crit, t7, 2026-10-17, 10d
+    Skeleton清理與正規化 T8            :crit, t8, 2026-10-27, 7d
+
+    section 動作分析核心
+    動作特徵計算 T9                    :t9, 2026-11-03, 7d
+    DTW時序對齊 T10                    :crit, t10, 2026-11-03, 8d
+    動作分段與標準模板 T11             :crit, t11, 2026-11-11, 8d
+    偏差與規則分析引擎 T12             :crit, t12, 2026-11-19, 6d
+
+    section Web系統
+    Backend API與資料流程 T13           :t13, 2026-10-16, 10d
+    Frontend MVP T14                    :t14, 2026-10-26, 10d
+    骨架與結果視覺化 T15               :t15, 2026-11-11, 8d
+    完整系統整合 T16                   :crit, t16, 2026-11-25, 6d
+
+    section 測試與成果
+    實驗與量化評估 T17                 :t17, 2026-12-01, 5d
+    系統測試與Robustness修正 T18       :t18, 2026-12-01, 5d
+    專題文件與展示成果 T19             :crit, t19, 2026-12-01, 6d
+    第一階段驗收與簡報演練 T20         :crit, t20, 2026-12-07, 3d
+
+    section 緩衝與截止
+    第一階段專案緩衝                    :2026-12-10, 11d
+    第一階段正式截止                    :milestone, deadline, 2026-12-21, 0d
 ```
