@@ -121,6 +121,6 @@ flowchart LR
 
     T20 --> F
 
-    classDef critical fill:#ffe5e5,stroke:#cc0000,stroke-width:3px;
+    classDef critical fill:#ffe5e5,stroke:#cc0000,stroke-width:3px,color:#000000;
     class T2,T4,T7,T8,T10,T11,T12,T16,T19,T20 critical;
 ```
